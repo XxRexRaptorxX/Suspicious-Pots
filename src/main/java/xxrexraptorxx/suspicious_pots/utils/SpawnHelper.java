@@ -1,11 +1,14 @@
 package xxrexraptorxx.suspicious_pots.utils;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.monster.Husk;
+import net.minecraft.world.entity.monster.Slime;
+import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import xxrexraptorxx.suspicious_pots.main.SuspiciousPots;
@@ -50,6 +53,7 @@ public class SpawnHelper {
         }
     }
 
+
     /**
      * Spawns the specified entity type at the given position in the world.
      *
@@ -59,15 +63,25 @@ public class SpawnHelper {
      */
     private static void spawnEntityAtLocation(EntityType<?> entityType, Level level, BlockPos pos) {
         Entity entity = entityType.create(level);
+
         if (entity != null) {
+            if (entity instanceof AgeableMob) {
+                AgeableMob ageableEntity = (AgeableMob) entity;
+                ageableEntity.setBaby(true);
+            }
+            if (entity instanceof Zombie) {
+                Zombie zombie = (Zombie) entity;
+                zombie.setBaby(true);
+            }
+            if (entity instanceof Slime) {
+                Slime slime = (Slime) entity;
+                slime.setSize(1, false);
+            }
 
-            //CompoundTag tag = new CompoundTag();
-            //tag.putBoolean("IsBaby", true);
-
-            level.playSound((Player) null, pos, SoundEvents.PLAYER_SMALL_FALL, SoundSource.BLOCKS, 0.5F, level.random.nextFloat() * 0.15F + 1.0F);
-
+            level.playSound((Player) null, pos, SoundEvents.PLAYER_BIG_FALL, SoundSource.BLOCKS, 0.5F, level.random.nextFloat() * 0.15F + 1.0F);
             entity.setPos(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
             level.addFreshEntity(entity);
         }
     }
+
 }
