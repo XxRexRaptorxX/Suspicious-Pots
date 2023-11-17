@@ -12,7 +12,12 @@
 
 -----
 
-#### This mod sometimes releases small monsters such as silverfish and baby husks when destroying pots!
+#### This small mod sometimes spawns small monsters such as silverfish and baby husks when destroying pots!
+
+#### Features:
+- config in which you can change monsters and spawn probability
+- mod compatible
+- version checker
 
 ![spawning silverfish](https://github.com/XxRexRaptorxX/Suspicious-Pots/blob/main/src/main/resources/review.png?raw=true)
 
