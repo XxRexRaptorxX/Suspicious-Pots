@@ -2,6 +2,7 @@ package xxrexraptorxx.suspicious_pots.utils;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
@@ -15,8 +16,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.VersionChecker;
@@ -33,6 +37,22 @@ import java.util.Scanner;
 public class Events {
 
 
+    @SubscribeEvent
+    public static void PotBreakEvent(BlockEvent.BreakEvent event) {
+        Level level = event.getPlayer().level();
+        BlockPos pos = event.getPos();
+        Block block = level.getBlockState(pos).getBlock();
+        Block blockBelow = level.getBlockState(pos.below()).getBlock();
+
+        if (!level.isClientSide) {
+            if (block == Blocks.DECORATED_POT) {
+
+                if (Config.ONLY_IN_TRIAL_CHAMBERS.get() && blockBelow == Blocks.OXIDIZED_COPPER || !Config.ONLY_IN_TRIAL_CHAMBERS.get()) {
+                    SpawnHelper.SpawnCreature(level, pos);
+                }
+            }
+        }
+    }
 
 
     /** Update-Checker **/

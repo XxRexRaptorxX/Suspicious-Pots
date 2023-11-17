@@ -1,16 +1,22 @@
 package xxrexraptorxx.suspicious_pots.utils;
 
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Mod.EventBusSubscriber
 public class Config {
 
     public static final String CATEGORY_GENERAL = "general";
+    public static final String CATEGORY_POTS = "pots";
 
     public static ForgeConfigSpec CLIENT_CONFIG;
     public static ForgeConfigSpec SERVER_CONFIG;
@@ -18,8 +24,9 @@ public class Config {
     public static ForgeConfigSpec.BooleanValue UPDATE_CHECKER;
     public static ForgeConfigSpec.BooleanValue PATREON_REWARDS;
 
-    public static ForgeConfigSpec.DoubleValue UPCYCLE_CHANCE;
-    public static ForgeConfigSpec.ConfigValue<List<String>> COMPOSTABLE_ITEMS;
+    public static ForgeConfigSpec.BooleanValue ONLY_IN_TRIAL_CHAMBERS;
+
+    public static ForgeConfigSpec.ConfigValue<List<String>> SPAWNING_LIST;
 
 
     public static void init() {
@@ -45,18 +52,21 @@ public class Config {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
 
         builder.comment("General").push(CATEGORY_GENERAL);
-        UPCYCLE_CHANCE = builder.comment("The chance for an item to add a level of compost").defineInRange("upcycle_chance", 0.3F, 0.1F, 1.0F);
         PATREON_REWARDS = builder.comment("Enables ingame rewards on first spawn for Patreons").define("patreon_rewards", true);
+        builder.pop();
 
-        /** TODO
-        COMPOSTABLE_ITEMS = builder.comment("A list with all compostable items [modid:item]").define("compostable_items", new ArrayList<>(Arrays.asList(
-                Items.ROTTEN_FLESH.getRegistryName().toString(),
-                Items.SPIDER_EYE.getRegistryName().toString(),
-                Items.FERMENTED_SPIDER_EYE.getRegistryName().toString(),
-                Items.POISONOUS_POTATO.getRegistryName().toString(),
-                Items.RABBIT_FOOT.getRegistryName().toString()
+        builder.comment("Pots").push(CATEGORY_POTS);
+        ONLY_IN_TRIAL_CHAMBERS = builder.comment("Mobs can only spawn in Trial Chambers from pots").define("only_in_trial_chambers", false);
+        SPAWNING_LIST = builder.comment("A list with all the mobs that can spawn from a broken pot [id:entity-chance]").define("spawning_list", new ArrayList<>(Arrays.asList(
+                ForgeRegistries.ENTITY_TYPES.getKey(EntityType.BAT).toString() + "-0.05",
+                ForgeRegistries.ENTITY_TYPES.getKey(EntityType.ENDERMITE).toString() + "-0.01",
+                ForgeRegistries.ENTITY_TYPES.getKey(EntityType.SLIME).toString() + "-0.05",
+                ForgeRegistries.ENTITY_TYPES.getKey(EntityType.CAVE_SPIDER).toString() + "-0.05",
+                ForgeRegistries.ENTITY_TYPES.getKey(EntityType.HUSK).toString() + "-0.03",
+                ForgeRegistries.ENTITY_TYPES.getKey(EntityType.VEX).toString() + "-0.01",
+                ForgeRegistries.ENTITY_TYPES.getKey(EntityType.CAT).toString() + "-0.01",
+                ForgeRegistries.ENTITY_TYPES.getKey(EntityType.SILVERFISH).toString() + "-0.1"
         )));
-        **/
         builder.pop();
 
         SERVER_CONFIG = builder.build();
