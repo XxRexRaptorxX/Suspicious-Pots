@@ -1,8 +1,12 @@
 package xxrexraptorxx.suspicious_pots.utils;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import xxrexraptorxx.suspicious_pots.main.SuspiciousPots;
 
@@ -56,7 +60,13 @@ public class SpawnHelper {
     private static void spawnEntityAtLocation(EntityType<?> entityType, Level level, BlockPos pos) {
         Entity entity = entityType.create(level);
         if (entity != null) {
-            entity.moveTo(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, level.random.nextFloat() * 360.0F, 0.0F);
+
+            //CompoundTag tag = new CompoundTag();
+            //tag.putBoolean("IsBaby", true);
+
+            level.playSound((Player) null, pos, SoundEvents.PLAYER_SMALL_FALL, SoundSource.BLOCKS, 0.5F, level.random.nextFloat() * 0.15F + 1.0F);
+
+            entity.setPos(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
             level.addFreshEntity(entity);
         }
     }

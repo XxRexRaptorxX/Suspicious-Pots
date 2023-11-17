@@ -56,7 +56,7 @@ public class Config {
         builder.pop();
 
         builder.comment("Pots").push(CATEGORY_POTS);
-        ONLY_IN_TRIAL_CHAMBERS = builder.comment("Mobs can only spawn in Trial Chambers from pots").define("only_in_trial_chambers", false);
+        ONLY_IN_TRIAL_CHAMBERS = builder.comment("Mobs can only spawn in pots from Trial Chambers").define("only_in_trial_chambers", false);
         SPAWNING_LIST = builder.comment("A list with all the mobs that can spawn from a broken pot [id:entity-chance]").define("spawning_list", new ArrayList<>(Arrays.asList(
                 ForgeRegistries.ENTITY_TYPES.getKey(EntityType.BAT).toString() + "-0.05",
                 ForgeRegistries.ENTITY_TYPES.getKey(EntityType.ENDERMITE).toString() + "-0.01",

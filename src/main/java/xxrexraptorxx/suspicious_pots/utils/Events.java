@@ -12,8 +12,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -40,16 +39,17 @@ public class Events {
     @SubscribeEvent
     public static void PotBreakEvent(BlockEvent.BreakEvent event) {
         Level level = event.getPlayer().level();
+        Item item = event.getPlayer().getMainHandItem().getItem();
         BlockPos pos = event.getPos();
         Block block = level.getBlockState(pos).getBlock();
         Block blockBelow = level.getBlockState(pos.below()).getBlock();
 
         if (!level.isClientSide) {
             if (block == Blocks.DECORATED_POT) {
-
-                if (Config.ONLY_IN_TRIAL_CHAMBERS.get() && blockBelow == Blocks.OXIDIZED_COPPER || !Config.ONLY_IN_TRIAL_CHAMBERS.get()) {
-                    SpawnHelper.SpawnCreature(level, pos);
-                }
+                if (item instanceof TieredItem || item instanceof ProjectileWeaponItem)
+                    if (Config.ONLY_IN_TRIAL_CHAMBERS.get() && blockBelow == Blocks.OXIDIZED_COPPER || !Config.ONLY_IN_TRIAL_CHAMBERS.get()) {
+                        SpawnHelper.SpawnCreature(level, pos);
+                    }
             }
         }
     }
