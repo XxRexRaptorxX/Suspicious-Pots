@@ -25,6 +25,7 @@ public class Config {
     public static ForgeConfigSpec.BooleanValue PATREON_REWARDS;
 
     public static ForgeConfigSpec.BooleanValue ONLY_IN_TRIAL_CHAMBERS;
+    public static ForgeConfigSpec.BooleanValue DEBUG_MODE;
 
     public static ForgeConfigSpec.ConfigValue<List<String>> SPAWNING_LIST;
 
@@ -57,16 +58,17 @@ public class Config {
 
         builder.comment("Pots").push(CATEGORY_POTS);
         ONLY_IN_TRIAL_CHAMBERS = builder.comment("Mobs can only spawn in pots from Trial Chambers").define("only_in_trial_chambers", false);
-        SPAWNING_LIST = builder.comment("A list with all the mobs that can spawn from a broken pot [id:entity-chance]").define("spawning_list", new ArrayList<>(Arrays.asList(
-                ForgeRegistries.ENTITY_TYPES.getKey(EntityType.BAT).toString() + "-0.05",
-                ForgeRegistries.ENTITY_TYPES.getKey(EntityType.ENDERMITE).toString() + "-0.01",
+        SPAWNING_LIST = builder.comment("A list with all the mobs that can spawn from a broken pot [id:entity-probability] (probability is written in decimal. 1.0 = 100%, 0.5 = 50%, 0.03 = 3%)").define("spawning_list", new ArrayList<>(Arrays.asList(
+                ForgeRegistries.ENTITY_TYPES.getKey(EntityType.BAT).toString() + "-0.03",
+                ForgeRegistries.ENTITY_TYPES.getKey(EntityType.ENDERMITE).toString() + "-0.06",
                 ForgeRegistries.ENTITY_TYPES.getKey(EntityType.SLIME).toString() + "-0.05",
-                ForgeRegistries.ENTITY_TYPES.getKey(EntityType.CAVE_SPIDER).toString() + "-0.05",
-                ForgeRegistries.ENTITY_TYPES.getKey(EntityType.HUSK).toString() + "-0.03",
-                ForgeRegistries.ENTITY_TYPES.getKey(EntityType.VEX).toString() + "-0.01",
-                ForgeRegistries.ENTITY_TYPES.getKey(EntityType.CAT).toString() + "-0.01",
-                ForgeRegistries.ENTITY_TYPES.getKey(EntityType.SILVERFISH).toString() + "-0.1"
+                ForgeRegistries.ENTITY_TYPES.getKey(EntityType.CAVE_SPIDER).toString() + "-0.03",
+                ForgeRegistries.ENTITY_TYPES.getKey(EntityType.HUSK).toString() + "-0.05",
+                ForgeRegistries.ENTITY_TYPES.getKey(EntityType.VEX).toString() + "-0.008",
+                ForgeRegistries.ENTITY_TYPES.getKey(EntityType.CAT).toString() + "-0.005",
+                ForgeRegistries.ENTITY_TYPES.getKey(EntityType.SILVERFISH).toString() + "-0.08"
         )));
+        DEBUG_MODE = builder.comment("Enables the Debug Mode. (shows you the spawn values & probabilities in the server console)").define("debug_mode", false);
         builder.pop();
 
         SERVER_CONFIG = builder.build();
