@@ -46,7 +46,7 @@ public class Events {
 
         if (!level.isClientSide) {
             if (block == Blocks.DECORATED_POT) {
-                if (item instanceof TieredItem || item instanceof ProjectileWeaponItem)
+                if (item instanceof TieredItem)
                     if (Config.ONLY_IN_TRIAL_CHAMBERS.get() && blockBelow == Blocks.OXIDIZED_COPPER || !Config.ONLY_IN_TRIAL_CHAMBERS.get()) {
                         SpawnHelper.SpawnCreature(level, pos);
                     }
