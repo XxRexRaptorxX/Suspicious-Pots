@@ -27,48 +27,51 @@ public class SpawnHelper {
     public static void SpawnCreature(Level level, BlockPos pos) {
         List<String> spawnList = Config.SPAWNING_LIST.get();
 
-        try {
-            // Sort the spawnList based on spawnProbability
-            spawnList.sort(new Comparator<String>() {
-                @Override
-                public int compare(String entry1, String entry2) {
-                    try {
-                        double spawnProbability1 = Double.parseDouble(entry1.split("-")[1]);
-                        double spawnProbability2 = Double.parseDouble(entry2.split("-")[1]);
+        if (!level.isClientSide) {
+            try {
+                // Sort the spawnList based on spawnProbability
+                spawnList.sort(new Comparator<String>() {
+                    @Override
+                    public int compare(String entry1, String entry2) {
+                        try {
+                            double spawnProbability1 = Double.parseDouble(entry1.split("-")[1]);
+                            double spawnProbability2 = Double.parseDouble(entry2.split("-")[1]);
 
-                        return Double.compare(spawnProbability1, spawnProbability2);
+                            return Double.compare(spawnProbability1, spawnProbability2);
 
-                    } catch (NumberFormatException e) {
-                        SuspiciousPots.LOGGER.error("Error parsing spawn probability: " + e.getMessage(), e);
-                        return 0; // Default value in case of error
+                        } catch (NumberFormatException e) {
+                            SuspiciousPots.LOGGER.error("Error parsing spawn probability: " + e.getMessage(), e);
+                            return 0; // Default value in case of error
+                        }
+                    }
+                });
+
+                // Iterate through the sorted spawnList
+                for (String entry : spawnList) {
+                    String[] parts = entry.split("-");
+
+                    if (parts.length == 2) {
+                        EntityType<?> entityType = EntityType.byString(parts[0]).orElse(null);
+                        double spawnProbability = Double.parseDouble(parts[1]);
+                        double random = Math.random();
+
+                        if (Config.DEBUG_MODE.get()) {
+                            SuspiciousPots.LOGGER.info("Random [" + (float) random + "] need to be less then spawn probability [" + spawnProbability + " (" + ConvertDecimalToPercentage(spawnProbability) + "%) for " + EntityTypeNameFormatter(entityType) + "]");
+                        }
+
+                        if (entityType != null && random < spawnProbability) {
+                            spawnEntityAtLocation(entityType, level, pos);
+
+                            if (Config.DEBUG_MODE.get())
+                                SuspiciousPots.LOGGER.info(EntityTypeNameFormatter(entityType) + " spawned successfully!");
+                            return; // Spawned entity, exit the loop
+                        }
                     }
                 }
-            });
 
-            // Iterate through the sorted spawnList
-            for (String entry : spawnList) {
-                String[] parts = entry.split("-");
-
-                if (parts.length == 2) {
-                    EntityType<?> entityType = EntityType.byString(parts[0]).orElse(null);
-                    double spawnProbability = Double.parseDouble(parts[1]);
-                    double random = Math.random();
-
-                    if (Config.DEBUG_MODE.get()) {
-                        SuspiciousPots.LOGGER.info("Random [" + (float)random + "] need to match spawn probability [" + spawnProbability + " (" + ConvertDecimalToPercentage(spawnProbability) + "%) for " + EntityTypeNameFormatter(entityType) + "]");
-                    }
-
-                    if (entityType != null && random < spawnProbability) {
-                        spawnEntityAtLocation(entityType, level, pos);
-
-                        if (Config.DEBUG_MODE.get()) SuspiciousPots.LOGGER.info(EntityTypeNameFormatter(entityType) + " spawned successfully!");
-                        return; // Spawned entity, exit the loop
-                    }
-                }
+            } catch (Exception e) {
+                SuspiciousPots.LOGGER.error(e.getMessage());
             }
-
-        } catch (Exception e) {
-            SuspiciousPots.LOGGER.error(e.getMessage());
         }
     }
 

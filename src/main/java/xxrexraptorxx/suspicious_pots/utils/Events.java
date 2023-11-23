@@ -24,6 +24,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.VersionChecker;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.ForgeRegistries;
 import xxrexraptorxx.suspicious_pots.main.References;
 import xxrexraptorxx.suspicious_pots.main.SuspiciousPots;
 
@@ -39,19 +40,31 @@ public class Events {
     @SubscribeEvent
     public static void PotBreakEvent(BlockEvent.BreakEvent event) {
         Level level = event.getPlayer().level();
-        Item item = event.getPlayer().getMainHandItem().getItem();
         BlockPos pos = event.getPos();
         Block block = level.getBlockState(pos).getBlock();
-        Block blockBelow = level.getBlockState(pos.below()).getBlock();
 
-        if (!level.isClientSide) {
-            if (block == Blocks.DECORATED_POT) {
-                if (item instanceof TieredItem)
-                    if (Config.ONLY_IN_TRIAL_CHAMBERS.get() && blockBelow == Blocks.OXIDIZED_COPPER || !Config.ONLY_IN_TRIAL_CHAMBERS.get()) {
-                        SpawnHelper.SpawnCreature(level, pos);
-                    }
+        if (block == Blocks.DECORATED_POT) {
+            Item item = event.getPlayer().getMainHandItem().getItem();
+            Block blockBelow = level.getBlockState(pos.below()).getBlock();
+
+            if (item instanceof TieredItem && (Config.BLOCKS_WHITE_LIST.get().isEmpty() || isBlockInWhiteList(blockBelow))) {
+                SpawnHelper.SpawnCreature(level, pos);
             }
         }
+    }
+
+
+    private static boolean isBlockInWhiteList(Block block) {
+        if (Config.DEBUG_MODE.get()) {
+            SuspiciousPots.LOGGER.info("Pot placed above: " + ForgeRegistries.BLOCKS.getKey(block).toString());
+        }
+
+        for (String validBlock : Config.BLOCKS_WHITE_LIST.get()) {
+            if (validBlock.equals(ForgeRegistries.BLOCKS.getKey(block).toString())) {
+                return true;
+            }
+        }
+        return false;
     }
 
 

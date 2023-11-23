@@ -1,7 +1,7 @@
 package xxrexraptorxx.suspicious_pots.utils;
 
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -24,10 +24,10 @@ public class Config {
     public static ForgeConfigSpec.BooleanValue UPDATE_CHECKER;
     public static ForgeConfigSpec.BooleanValue PATREON_REWARDS;
 
-    public static ForgeConfigSpec.BooleanValue ONLY_IN_TRIAL_CHAMBERS;
     public static ForgeConfigSpec.BooleanValue DEBUG_MODE;
 
     public static ForgeConfigSpec.ConfigValue<List<String>> SPAWNING_LIST;
+    public static ForgeConfigSpec.ConfigValue<List<String>> BLOCKS_WHITE_LIST;
 
 
     public static void init() {
@@ -57,7 +57,6 @@ public class Config {
         builder.pop();
 
         builder.comment("Pots").push(CATEGORY_POTS);
-        ONLY_IN_TRIAL_CHAMBERS = builder.comment("Mobs can only spawn in pots from Trial Chambers").define("only_in_trial_chambers", false);
         SPAWNING_LIST = builder.comment("A list with all the mobs that can spawn from a broken pot [id:entity-probability] (probability is written in decimal. 1.0 = 100%, 0.5 = 50%, 0.03 = 3%)").define("spawning_list", new ArrayList<>(Arrays.asList(
                 ForgeRegistries.ENTITY_TYPES.getKey(EntityType.BAT).toString() + "-0.03",
                 ForgeRegistries.ENTITY_TYPES.getKey(EntityType.ENDERMITE).toString() + "-0.06",
@@ -67,6 +66,8 @@ public class Config {
                 ForgeRegistries.ENTITY_TYPES.getKey(EntityType.VEX).toString() + "-0.008",
                 ForgeRegistries.ENTITY_TYPES.getKey(EntityType.CAT).toString() + "-0.005",
                 ForgeRegistries.ENTITY_TYPES.getKey(EntityType.SILVERFISH).toString() + "-0.08"
+        )));
+        BLOCKS_WHITE_LIST = builder.comment("Only lets mob spawn if the pots are on a certain block. Useful if you want the mobs to only spawn in pots of certain structures. [modid:block] (use 'minecraft:oxidized_copper' for trial chambers)").define("blocks_white_list", new ArrayList<>(Arrays.asList(
         )));
         DEBUG_MODE = builder.comment("Enables the Debug Mode. (shows you the spawn values & probabilities in the server console)").define("debug_mode", false);
         builder.pop();
