@@ -25,7 +25,7 @@ public class Config {
     public static ForgeConfigSpec.BooleanValue PATREON_REWARDS;
 
     public static ForgeConfigSpec.BooleanValue DEBUG_MODE;
-
+    public static ForgeConfigSpec.DoubleValue SILVERFISH_GROUP_SPAWN_PROBABILITY;
     public static ForgeConfigSpec.ConfigValue<List<String>> SPAWNING_LIST;
     public static ForgeConfigSpec.ConfigValue<List<String>> BLOCKS_WHITE_LIST;
 
@@ -67,8 +67,8 @@ public class Config {
                 ForgeRegistries.ENTITY_TYPES.getKey(EntityType.CAT).toString() + "-0.005",
                 ForgeRegistries.ENTITY_TYPES.getKey(EntityType.SILVERFISH).toString() + "-0.08"
         )));
-        BLOCKS_WHITE_LIST = builder.comment("Only lets mob spawn if the pots are on a certain block. Useful if you want the mobs to only spawn in pots of certain structures. [modid:block] (use 'minecraft:oxidized_copper' for trial chambers)").define("blocks_white_list", new ArrayList<>(Arrays.asList(
-        )));
+        BLOCKS_WHITE_LIST = builder.comment("Only lets mob spawn if the pots are on a certain block. Useful if you want the mobs to only spawn in pots of certain structures. [id:block] (use 'minecraft:oxidized_copper' for trial chambers)").define("blocks_white_list", new ArrayList<>(Arrays.asList()));
+        SILVERFISH_GROUP_SPAWN_PROBABILITY = builder.comment("This is the probability that when a silverfish spawns from a broken pot, that other silverfish from nearby pots are spawning.").defineInRange("silverfish_group_spawn_probability", 0.1, 0.0, 1.0);
         DEBUG_MODE = builder.comment("Enables the Debug Mode. (shows you the spawn values & probabilities in the server console)").define("debug_mode", false);
         builder.pop();
 

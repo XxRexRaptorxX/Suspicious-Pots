@@ -6,15 +6,17 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.monster.Silverfish;
 import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.registries.ForgeRegistries;
 import xxrexraptorxx.suspicious_pots.main.SuspiciousPots;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Random;
 
 public class SpawnHelper {
 
@@ -56,14 +58,14 @@ public class SpawnHelper {
                         double random = Math.random();
 
                         if (Config.DEBUG_MODE.get()) {
-                            SuspiciousPots.LOGGER.info("Random [" + (float) random + "] need to be less then spawn probability [" + spawnProbability + " (" + ConvertDecimalToPercentage(spawnProbability) + "%) for " + EntityTypeNameFormatter(entityType) + "]");
+                            SuspiciousPots.LOGGER.info("Random [" + (float) random + "] must to be less then spawn probability [" + spawnProbability + " (" + ConvertDecimalToPercentage(spawnProbability) + "%) for " + EntityTypeNameFormatter(entityType) + "]");
                         }
 
                         if (entityType != null && random < spawnProbability) {
-                            spawnEntityAtLocation(entityType, level, pos);
-
                             if (Config.DEBUG_MODE.get())
                                 SuspiciousPots.LOGGER.info(EntityTypeNameFormatter(entityType) + " spawned successfully!");
+
+                            spawnEntityAtLocation(entityType, level, pos);
                             return; // Spawned entity, exit the loop
                         }
                     }
@@ -76,13 +78,13 @@ public class SpawnHelper {
     }
 
 
-        /**
-         * Spawns the specified entity type at the given position in the world.
-         *
-         * @param entityType The type of entity to spawn.
-         * @param level      The world level.
-         * @param pos        The position where the entity should be spawned.
-         */
+    /**
+     * Spawns the specified entity type at the given position in the world.
+     *
+     * @param entityType The type of entity to spawn.
+     * @param level      The world level.
+     * @param pos        The position where the entity should be spawned.
+     */
     private static void spawnEntityAtLocation(EntityType<?> entityType, Level level, BlockPos pos) {
         Entity entity = entityType.create(level);
 
@@ -99,10 +101,54 @@ public class SpawnHelper {
                 Slime slime = (Slime) entity;
                 slime.setSize(1, false);
             }
+            if (entity instanceof Silverfish && Config.SILVERFISH_GROUP_SPAWN_PROBABILITY.get() != 0) {
+                SpawnSilverfishGroup(level, pos);
+            }
 
-            level.playSound((Player) null, pos, SoundEvents.PLAYER_BIG_FALL, SoundSource.BLOCKS, 0.5F, level.random.nextFloat() * 0.15F + 1.0F);
+            level.playSound((Player) null, pos, SoundEvents.DECORATED_POT_HIT, SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.15F + 1.0F);
             entity.setPos(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
             level.addFreshEntity(entity);
+        }
+    }
+
+
+    private static void SpawnSilverfishGroup(Level level, BlockPos pos) {
+        int searchRadius = 5;
+
+        //sets the start position
+        int posX = pos.getX();
+        int posY = pos.getY();
+        int posZ = pos.getZ();
+
+        //changes the tested position
+        for (int x = -searchRadius; x <= searchRadius; x++) {
+
+            for (int y = -searchRadius; y <= searchRadius; y++) {
+
+                for (int z = -searchRadius; z <= searchRadius; z++) {
+                    BlockPos block = new BlockPos(posX + x, posY + y, posZ + z);
+
+                    //tests if current block is a pot and it's not the start block
+                    if (level.getBlockState(block).getBlock() == Blocks.DECORATED_POT && pos != block) {
+                        double random = Math.random();
+
+                        if (Config.DEBUG_MODE.get()) {
+                            SuspiciousPots.LOGGER.info("Additional silverfish spawning for Pot at the position: [" + block.getX() + ", " +  block.getY() + ", " + block.getZ() + "]");
+                            SuspiciousPots.LOGGER.info("Random [" + (float) random + "] must to be less then spawn probability [" + Config.SILVERFISH_GROUP_SPAWN_PROBABILITY.get() + " (" + ConvertDecimalToPercentage(Config.SILVERFISH_GROUP_SPAWN_PROBABILITY.get()) + "%)]");
+                        }
+
+                        //entity spawning
+                        if (Config.SILVERFISH_GROUP_SPAWN_PROBABILITY.get() > random) {
+                            if (Config.DEBUG_MODE.get()) SuspiciousPots.LOGGER.info("Additional silverfish spawned successfully!");
+
+                            level.playSound((Player) null, block, SoundEvents.DECORATED_POT_HIT, SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.15F + 1.0F);
+                            Silverfish entity = new Silverfish(EntityType.SILVERFISH, level);
+                            entity.setPos(block.getX() + 0.5F, block.getY() + 1.3F, block.getZ() + 0.5F);
+                            level.addFreshEntity(entity);
+                        }
+                    }
+                }
+            }
         }
     }
 
