@@ -1,7 +1,7 @@
 package xxrexraptorxx.suspicious_pots.main;
 
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.common.NeoForge;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import xxrexraptorxx.suspicious_pots.utils.Config;
@@ -17,7 +17,5 @@ public class SuspiciousPots {
 
     public SuspiciousPots() {
         Config.init();
-
-        MinecraftForge.EVENT_BUS.register(this);
     }
 }

@@ -12,7 +12,6 @@ import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.registries.ForgeRegistries;
 import xxrexraptorxx.suspicious_pots.main.SuspiciousPots;
 
 import java.util.Comparator;

@@ -3,6 +3,7 @@ package xxrexraptorxx.suspicious_pots.utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
@@ -12,19 +13,21 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.level.BlockEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.VersionChecker;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModList;
+import net.neoforged.fml.VersionChecker;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.event.TickEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.event.level.BlockEvent;
 import xxrexraptorxx.suspicious_pots.main.References;
 import xxrexraptorxx.suspicious_pots.main.SuspiciousPots;
 
@@ -56,11 +59,11 @@ public class Events {
 
     private static boolean isBlockInWhiteList(Block block) {
         if (Config.DEBUG_MODE.get()) {
-            SuspiciousPots.LOGGER.info("Pot placed above: " + ForgeRegistries.BLOCKS.getKey(block).toString());
+            SuspiciousPots.LOGGER.info("Pot placed above: " + BuiltInRegistries.BLOCK.getKey(block).toString());
         }
 
         for (String validBlock : Config.BLOCKS_WHITE_LIST.get()) {
-            if (validBlock.equals(ForgeRegistries.BLOCKS.getKey(block).toString())) {
+            if (validBlock.equals(BuiltInRegistries.BLOCK.getKey(block).toString())) {
                 return true;
             }
         }
