@@ -1,7 +1,6 @@
 package xxrexraptorxx.suspicious_pots.main;
 
 import net.neoforged.fml.common.Mod;
-import net.neoforged.neoforge.common.NeoForge;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import xxrexraptorxx.suspicious_pots.utils.Config;
