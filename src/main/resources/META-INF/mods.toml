@@ -8,12 +8,12 @@ modId="${mod_id}"
 version="${mod_version}"
 displayName="${mod_name}"
 itemIcon="minecraft:decorated_pot"
-updateJSONURL="https://raw.githubusercontent.com/XxRexRaptorxX/Update-Checker/main/SuspiciousPots.json"
+updateJSONURL="https://raw.githubusercontent.com/XxRexRaptorxX/Update-Checker/main/SuspiciousPots_NEO.json"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/suspicious_pots"
 logoFile="logo.png"
 credits="@gaspoweredpick for the idea"
 authors="${mod_authors}"
-description='''This mod sometimes releases small monsters such as silverfish and baby husks when destroying pots!'''
+description='''This mod sometimes spawns small monsters such as silverfish, endermites or baby husks when destroying pots!'''
 
 
 [[dependencies.${mod_id}]]
