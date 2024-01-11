@@ -11,8 +11,10 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -44,10 +46,10 @@ public class Events {
         Block block = level.getBlockState(pos).getBlock();
 
         if (block == Blocks.DECORATED_POT) {
-            Item item = event.getPlayer().getMainHandItem().getItem();
+            ItemStack stack = event.getPlayer().getMainHandItem();
             Block blockBelow = level.getBlockState(pos.below()).getBlock();
 
-            if (item instanceof TieredItem && (Config.BLOCKS_WHITE_LIST.get().isEmpty() || isBlockInWhiteList(blockBelow))) {
+            if (stack.is(ItemTags.BREAKS_DECORATED_POTS) && (Config.BLOCKS_WHITE_LIST.get().isEmpty() || isBlockInWhiteList(blockBelow))) {
                 SpawnHelper.SpawnCreature(level, pos);
             }
         }
