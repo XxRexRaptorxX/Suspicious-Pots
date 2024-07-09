@@ -2,6 +2,7 @@ package xxrexraptorxx.suspicious_pots.utils;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
@@ -28,12 +29,12 @@ public class Config {
     public static ModConfigSpec.ConfigValue<List<String>> BLOCKS_WHITE_LIST;
 
 
-    public static void init() {
+    public static void init(ModContainer container) {
         initServer();
         initClient();
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, SERVER_CONFIG);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CLIENT_CONFIG);
+        container.registerConfig(ModConfig.Type.SERVER, SERVER_CONFIG);
+        container.registerConfig(ModConfig.Type.CLIENT, CLIENT_CONFIG);
     }
 
 
