@@ -8,7 +8,7 @@ import xxrexraptorxx.suspicious_pots.utils.Config;
 
 /**
  * @author XxRexRaptorxX (RexRaptor)
- * @projectPage https://www.curseforge.com/minecraft/mc-mods/suspicious_pots
+ * @projectPage <a href="https://www.curseforge.com/minecraft/mc-mods/suspicious_pots">...</a>
  **/
 @Mod(References.MODID)
 public class SuspiciousPots {

@@ -5,6 +5,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.monster.Silverfish;
 import net.minecraft.world.entity.monster.Slime;
@@ -85,7 +86,7 @@ public class SpawnHelper {
      * @param pos        The position where the entity should be spawned.
      */
     private static void spawnEntityAtLocation(EntityType<?> entityType, Level level, BlockPos pos) {
-        Entity entity = entityType.create(level);
+        Entity entity = entityType.create(level, EntitySpawnReason.TRIGGERED);
 
         if (entity != null) {
             if (entity instanceof AgeableMob) {
