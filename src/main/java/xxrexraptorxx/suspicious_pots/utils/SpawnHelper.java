@@ -27,9 +27,11 @@ public class SpawnHelper {
      * @param pos   The position where the creature should be spawned.
      */
     public static void SpawnCreature(Level level, BlockPos pos) {
-        List<String> spawnList = Config.SPAWNING_LIST.get();
+        if (Config.isDebugModeEnabled()) SuspiciousPots.LOGGER.info("Try to spawn creature!");
 
         if (!level.isClientSide) {
+            List<String> spawnList = Config.getSpawningList();
+
             try {
                 // Sort the spawnList based on spawnProbability
                 spawnList.sort(new Comparator<String>() {
@@ -57,12 +59,12 @@ public class SpawnHelper {
                         double spawnProbability = Double.parseDouble(parts[1]);
                         double random = Math.random();
 
-                        if (Config.DEBUG_MODE.get()) {
+                        if (Config.isDebugModeEnabled()) {
                             SuspiciousPots.LOGGER.info("Random [" + (float) random + "] must to be less then spawn probability [" + spawnProbability + " (" + ConvertDecimalToPercentage(spawnProbability) + "%) for " + EntityTypeNameFormatter(entityType) + "]");
                         }
 
                         if (entityType != null && random < spawnProbability) {
-                            if (Config.DEBUG_MODE.get())
+                            if (Config.isDebugModeEnabled())
                                 SuspiciousPots.LOGGER.info(EntityTypeNameFormatter(entityType) + " spawned successfully!");
 
                             spawnEntityAtLocation(entityType, level, pos);
@@ -101,7 +103,7 @@ public class SpawnHelper {
                 Slime slime = (Slime) entity;
                 slime.setSize(1, false);
             }
-            if (entity instanceof Silverfish && Config.SILVERFISH_GROUP_SPAWN_PROBABILITY.get() != 0) {
+            if (entity instanceof Silverfish && Config.getSilverfishGroupSpawnProbability() != 0) {
                 SpawnSilverfishGroup(level, pos);
             }
 
@@ -132,14 +134,14 @@ public class SpawnHelper {
                     if (level.getBlockState(block).getBlock() == Blocks.DECORATED_POT && pos != block) {
                         double random = Math.random();
 
-                        if (Config.DEBUG_MODE.get()) {
+                        if (Config.isDebugModeEnabled()) {
                             SuspiciousPots.LOGGER.info("Additional silverfish spawning for Pot at the position: [" + block.getX() + ", " +  block.getY() + ", " + block.getZ() + "]");
-                            SuspiciousPots.LOGGER.info("Random [" + (float) random + "] must to be less then spawn probability [" + Config.SILVERFISH_GROUP_SPAWN_PROBABILITY.get() + " (" + ConvertDecimalToPercentage(Config.SILVERFISH_GROUP_SPAWN_PROBABILITY.get()) + "%)]");
+                            SuspiciousPots.LOGGER.info("Random [" + (float) random + "] must to be less then spawn probability [" + Config.getSilverfishGroupSpawnProbability() + " (" + ConvertDecimalToPercentage(Config.getSilverfishGroupSpawnProbability()) + "%)]");
                         }
 
                         //entity spawning
-                        if (Config.SILVERFISH_GROUP_SPAWN_PROBABILITY.get() > random) {
-                            if (Config.DEBUG_MODE.get()) SuspiciousPots.LOGGER.info("Additional silverfish spawned successfully!");
+                        if (Config.getSilverfishGroupSpawnProbability() > random) {
+                            if (Config.isDebugModeEnabled()) SuspiciousPots.LOGGER.info("Additional silverfish spawned successfully!");
 
                             level.playSound((Player) null, block, SoundEvents.DECORATED_POT_HIT, SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.15F + 1.0F);
                             Silverfish entity = new Silverfish(EntityType.SILVERFISH, level);

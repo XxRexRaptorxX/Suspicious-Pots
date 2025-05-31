@@ -27,7 +27,7 @@ public class Events {
             ItemStack stack = event.getPlayer().getMainHandItem();
             Block blockBelow = level.getBlockState(pos.below()).getBlock();
 
-            if (stack.is(ItemTags.BREAKS_DECORATED_POTS) && (Config.BLOCKS_WHITE_LIST.get().isEmpty() || isBlockInWhiteList(blockBelow))) {
+            if (stack.is(ItemTags.BREAKS_DECORATED_POTS) && (Config.getBlockWhiteList().isEmpty() || isBlockInWhiteList(blockBelow))) {
                 SpawnHelper.SpawnCreature(level, pos);
             }
         }
@@ -35,11 +35,9 @@ public class Events {
 
 
     private static boolean isBlockInWhiteList(Block block) {
-        if (Config.DEBUG_MODE.get()) {
-            SuspiciousPots.LOGGER.info("Pot placed above: " + BuiltInRegistries.BLOCK.getKey(block).toString());
-        }
+        if (Config.isDebugModeEnabled()) SuspiciousPots.LOGGER.info("Pot placed above: " + BuiltInRegistries.BLOCK.getKey(block).toString());
 
-        for (String validBlock : Config.BLOCKS_WHITE_LIST.get()) {
+        for (String validBlock : Config.getBlockWhiteList()) {
             if (validBlock.equals(BuiltInRegistries.BLOCK.getKey(block).toString())) {
                 return true;
             }
