@@ -15,6 +15,9 @@ credits="@gaspoweredpick for the idea"
 authors="${mod_authors}"
 description='''This mod sometimes spawns small monsters such as silverfish, endermites or baby husks when destroying pots!'''
 
+[modproperties.${mod_id}]
+configuredBackground="minecraft:textures/entity/decorated_pot/danger_pottery_pattern.png"
+
 
 [[dependencies.${mod_id}]]
 modId="neoforge"
@@ -32,3 +35,11 @@ versionRange="${minecraft_version_range}"
 ordering="NONE"
 side="BOTH"
 
+[[dependencies.${mod_id}]]
+modId="magmacore"
+referralUrl="https://www.curseforge.com/minecraft/mc-mods/magma-core"
+reason="Provides basic code and features such as update-checker"
+type="required"
+versionRange="${magmacore_version_range}"
+ordering="AFTER"
+side="BOTH"

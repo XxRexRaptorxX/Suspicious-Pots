@@ -3,8 +3,6 @@ package xxrexraptorxx.suspicious_pots.utils;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
 import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.ModLoadingContext;
-import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
@@ -14,14 +12,9 @@ import java.util.List;
 
 public class Config {
 
-    public static final String CATEGORY_GENERAL = "general";
     public static final String CATEGORY_POTS = "pots";
 
-    public static ModConfigSpec CLIENT_CONFIG;
     public static ModConfigSpec SERVER_CONFIG;
-
-    public static ModConfigSpec.BooleanValue UPDATE_CHECKER;
-    public static ModConfigSpec.BooleanValue PATREON_REWARDS;
 
     public static ModConfigSpec.BooleanValue DEBUG_MODE;
     public static ModConfigSpec.DoubleValue SILVERFISH_GROUP_SPAWN_PROBABILITY;
@@ -31,29 +24,13 @@ public class Config {
 
     public static void init(ModContainer container) {
         initServer();
-        initClient();
 
         container.registerConfig(ModConfig.Type.SERVER, SERVER_CONFIG);
-        container.registerConfig(ModConfig.Type.CLIENT, CLIENT_CONFIG);
     }
 
-
-    public static void initClient() {
-        ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
-
-        builder.comment("General").push(CATEGORY_GENERAL);
-        UPDATE_CHECKER = builder.comment("Activate the Update-Checker").define("update-checker", true);
-        builder.pop();
-
-        CLIENT_CONFIG = builder.build();
-    }
 
     public static void initServer() {
         ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
-
-        builder.comment("General").push(CATEGORY_GENERAL);
-        PATREON_REWARDS = builder.comment("Enables ingame rewards on first spawn for Patreons").define("patreon_rewards", true);
-        builder.pop();
 
         builder.comment("Pots").push(CATEGORY_POTS);
         SPAWNING_LIST = builder.comment("A list with all the mobs that can spawn from a broken pot [id:entity-probability] (probability is written in decimal. 1.0 = 100%, 0.5 = 50%, 0.03 = 3%)").define("spawning_list", new ArrayList<>(Arrays.asList(

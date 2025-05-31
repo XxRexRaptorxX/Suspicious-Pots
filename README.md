@@ -8,6 +8,13 @@
 
 -----
 
+## 🗃️ Dependencies
+
+- **Magma Core**
+    - [CurseForge][cf_magmacore] | [Modrinth][mr_magmacore]
+
+-----
+
 ## 📖 Description
 
 -----
@@ -29,3 +36,6 @@ All rights reserved.
 
 [cf_mod]: https://legacy.curseforge.com/minecraft/mc-mods/suspicious-pots
 [mr_mod]: https://modrinth.com/mod/suspicious-pots
+
+[cf_magmacore]: https://www.curseforge.com/minecraft/mc-mods/magma-core
+[mr_magmacore]: https://modrinth.com/mod/magma-core
