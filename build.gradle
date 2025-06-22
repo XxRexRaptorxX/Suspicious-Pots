@@ -1,8 +1,12 @@
+import net.darkhax.curseforgegradle.TaskPublishCurseForge
+
 plugins {
     id 'java-library'
     id 'maven-publish'
     id 'net.neoforged.moddev' version '2.0.78'
     id 'idea'
+    id "com.modrinth.minotaur" version "2.+" //Modrinth
+    id 'net.darkhax.curseforgegradle' version '1.1.26' //Curseforge
 }
 
 tasks.named('wrapper', Wrapper).configure {
@@ -158,8 +162,8 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
             minecraft_version_range: minecraft_version_range,
             neo_version            : neo_version,
             neo_version_range      : neo_version_range,
-            magmacore_version_range: magmacore_version_range,
             loader_version_range   : loader_version_range,
+            magmacore_version_range: magmacore_version_range,
             pack_format_number     : pack_format_number,
             mod_id                 : mod_id,
             mod_name               : mod_name,
@@ -209,4 +213,52 @@ idea {
         downloadSources = true
         downloadJavadoc = true
     }
+}
+
+
+
+//MODRINTH
+def rawGameVersions = project.findProperty("game_versions")?.toString() ?: "" //Game version transformator for Modrinth
+def parsedGameVersions = rawGameVersions.split(",").collect { it.trim() }
+def modrinthToken = project.findProperty("modrinthToken")?.toString() //token getter
+if (modrinthToken == null) {
+    throw new GradleException("Missing token in ~/.gradle/gradle.properties => 'modrinthToken'")
+}
+modrinth {
+    token = modrinthToken
+    projectId = mr_id
+    versionType = release_type //can be `release`, `beta` or `alpha`
+    uploadFile = jar
+    gameVersions = parsedGameVersions
+    changelog = change_log
+    failSilently = true
+    syncBodyFrom = rootProject.file("README.md").text
+    dependencies {
+        // The scope can be `required`, `optional`, `incompatible`, or `embedded`
+        // The type can either be `project` or `version`
+        required.project "magma-core"
+    }
+}
+//tasks.modrinth.dependsOn(tasks.modrinthSyncBody) //auto readme sync
+tasks.modrinth.wasUploadSuccessful()
+tasks.modrinth.uploadInfo
+
+
+//CURSEFORGE
+def cfToken = project.findProperty("curseforgeToken")?.toString()
+if (cfToken == null) {
+    throw new GradleException("Missing token in ~/.gradle/gradle.properties => 'curseforgeToken'")
+}
+def cfId = project.findProperty("cf_id")?.toString()
+
+task publishCurseForge(type: TaskPublishCurseForge) {
+    apiToken = cfToken
+
+    // Tells CurseForgeGradle to publish the output of the jar task. This will
+    // return a UploadArtifact object that can be used to further configure the
+    // file.
+    def mainFile = upload(cfId as Integer, jar)
+    mainFile.releaseType   = release_type
+    mainFile.changelog     = change_log
+    mainFile.changelogType = 'markdown'
 }
