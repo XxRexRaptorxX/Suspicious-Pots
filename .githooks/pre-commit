@@ -1,0 +1,18 @@
+#!/bin/sh
+# Auto-generated pre-commit hook for dev tagging
+# This hook will be executed before every commit
+
+echo "🏷️  Preparing Dev tag for commit..."
+
+# Get project root (one level up from .githooks folder)
+PROJECT_DIR="$(dirname "$(dirname "$0")")"
+cd "$PROJECT_DIR" || exit 1
+
+# Read version from gradle.properties
+CURRENT_VERSION=$(grep "^mod_version=" gradle.properties | cut -d'=' -f2)
+
+echo "📋 Current version: $CURRENT_VERSION"
+
+# The actual dev tagging will happen in post-commit to avoid issues
+# Pre-commit just validates that we can create tags
+exit 0
