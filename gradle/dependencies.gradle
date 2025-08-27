@@ -48,4 +48,15 @@ dependencies {
     compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
     // JADE
     runtimeOnly "curse.maven:jade-324717:${jade_version}"
+    // MagmaCore
+    implementation "curse.maven:magmacore-1267885:${magmacore_version}"
+    // other
+    //runtimeOnly "curse.maven:supplementaries-412082:${supplementaries_version}"
+    //runtimeOnly "curse.maven:quark-243121:${supplementaries_version}"
+    //runtimeOnly "curse.maven:archeological-1107838:${archeological_version}"
+    //runtimeOnly "curse.maven:pottery-955781:${pottery_version}"
+    //runtimeOnly "curse.maven:pots_mimics-955781:${pots_mimics_version}"
+    //runtimeOnly "curse.maven:simple_pots:1142970${simple_pots_version}"
+
+
 }
