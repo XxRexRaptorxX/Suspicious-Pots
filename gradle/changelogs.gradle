@@ -52,15 +52,6 @@ def writeIfChanged(File file, String content) {
 // Tasks
 // ==================================
 
-tasks.register("setupAutoDevHook") {
-    group = "changelog"
-    description = "Setup pre-commit hook for automatic dev tagging"
-
-    doLast {
-        setupPreCommitHook()
-    }
-}
-
 tasks.register("generateChangelog") {
     group = "changelog"
     description = "Generate LATEST_CHANGELOG.md from all dev commits of current version"
