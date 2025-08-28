@@ -45,7 +45,6 @@ public class Config {
         SERVER_CONFIG = SERVER_BUILDER.build();
     }
 
-
     public static boolean isDebugModeEnabled() { return DEBUG_MODE.get() || xxrexraptorxx.magmacore.config.Config.getDebugMode(); }
     public static double getSilverfishGroupSpawnProbability() { return SILVERFISH_GROUP_SPAWN_PROBABILITY.get(); }
     public static List<String>  getSpawningList() { return (List<String>) SPAWNING_LIST.get(); }
