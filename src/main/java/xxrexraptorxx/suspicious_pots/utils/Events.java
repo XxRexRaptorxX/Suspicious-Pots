@@ -6,7 +6,6 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.level.BlockEvent;
@@ -23,7 +22,7 @@ public class Events {
         BlockPos pos = event.getPos();
         Block block = level.getBlockState(pos).getBlock();
 
-        if (block == Blocks.DECORATED_POT) {
+        if (Config.getSpawnBlocks().contains(BuiltInRegistries.BLOCK.getKey(block).toString())) {
             ItemStack stack = event.getPlayer().getMainHandItem();
             Block blockBelow = level.getBlockState(pos.below()).getBlock();
 

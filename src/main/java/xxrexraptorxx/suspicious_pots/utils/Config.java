@@ -16,6 +16,7 @@ public class Config {
     private static ModConfigSpec.DoubleValue SILVERFISH_GROUP_SPAWN_PROBABILITY;
     private static ModConfigSpec.ConfigValue<List<? extends String>> SPAWNING_LIST;
     private static ModConfigSpec.ConfigValue<List<? extends String>> BLOCKS_WHITE_LIST;
+    private static ModConfigSpec.ConfigValue<List<? extends String>> SPAWN_BLOCKS;
 
 
     static {
@@ -24,6 +25,10 @@ public class Config {
         SERVER_BUILDER.pop();
 
         ConfigHelper.setCategory(SERVER_BUILDER, "spawn_settings");
+        SPAWN_BLOCKS = SERVER_BUILDER.comment("A list of all blocks that should have the ability to spawn monsters.").defineListAllowEmpty("spawn_blocks",
+                Arrays.asList(
+                        "minecraft:decorated_pot"
+                ), () -> "id:block", obj -> obj instanceof String string && ConfigListHelper.isValidBlock(string));
         SPAWNING_LIST = SERVER_BUILDER.comment("A list with all the mobs that can spawn from a broken pot [id:entity-probability]").defineListAllowEmpty("spawning_list",
                         Arrays.asList(
                                 "minecraft:bat-0.03",
@@ -48,6 +53,7 @@ public class Config {
     public static boolean isDebugModeEnabled() { return DEBUG_MODE.get() || xxrexraptorxx.magmacore.config.Config.getDebugMode(); }
     public static double getSilverfishGroupSpawnProbability() { return SILVERFISH_GROUP_SPAWN_PROBABILITY.get(); }
     public static List<String>  getSpawningList() { return (List<String>) SPAWNING_LIST.get(); }
+    public static List<String>  getSpawnBlocks() { return (List<String>) SPAWN_BLOCKS.get(); }
     public static List<String> getBlockWhiteList() { return (List<String>) BLOCKS_WHITE_LIST.get(); }
 
 }
