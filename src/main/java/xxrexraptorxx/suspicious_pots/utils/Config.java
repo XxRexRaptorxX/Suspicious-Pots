@@ -1,9 +1,11 @@
 package xxrexraptorxx.suspicious_pots.utils;
 
+import net.minecraft.world.item.DyeColor;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import xxrexraptorxx.magmacore.config.ConfigHelper;
 import xxrexraptorxx.magmacore.config.ConfigListHelper;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,7 +20,6 @@ public class Config {
     private static ModConfigSpec.ConfigValue<List<? extends String>> BLOCKS_WHITE_LIST;
     private static ModConfigSpec.ConfigValue<List<? extends String>> SPAWN_BLOCKS;
 
-
     static {
         ConfigHelper.setCategory(SERVER_BUILDER, "general");
         DEBUG_MODE = SERVER_BUILDER.comment("Enables the Debug Mode. (shows you the spawn values & probabilities in the server console)").define("debug_mode", false);
@@ -26,9 +27,7 @@ public class Config {
 
         ConfigHelper.setCategory(SERVER_BUILDER, "spawn_settings");
         SPAWN_BLOCKS = SERVER_BUILDER.comment("A list of all blocks that should have the ability to spawn monsters.").defineListAllowEmpty("spawn_blocks",
-                Arrays.asList(
-                        "minecraft:decorated_pot"
-                ), () -> "id:block", obj -> obj instanceof String string && ConfigListHelper.isValidBlock(string));
+                makeSpawnBlockList(), () -> "id:block", obj -> obj instanceof String string && ConfigListHelper.isValidBlock(string));
         SPAWNING_LIST = SERVER_BUILDER.comment("A list with all the mobs that can spawn from a broken pot [id:entity-probability]").defineListAllowEmpty("spawning_list",
                         Arrays.asList(
                                 "minecraft:bat-0.03",
@@ -56,4 +55,44 @@ public class Config {
     public static List<String>  getSpawnBlocks() { return (List<String>) SPAWN_BLOCKS.get(); }
     public static List<String> getBlockWhiteList() { return (List<String>) BLOCKS_WHITE_LIST.get(); }
 
+
+    private static List<String> addColoredStuff(String base) {
+        List<String> result = new ArrayList<>();
+        for (DyeColor dye : DyeColor.values()) {
+            result.add(base + "_" + dye.getName());
+        }
+        return result;
+    }
+
+    private static List<String> makeSpawnBlockList() {
+        List<String> list = new ArrayList<>();
+
+        list.add("minecraft:decorated_pot");
+        list.add("pottery:base_pot_blank");
+        list.add("pottery:wide_pot_blank");
+        list.add("pottery:tall_pot_blank");
+        list.add("simply_pots:surface_loot_pot");
+        list.add("simply_pots:desert_loot_pot");
+        list.add("simply_pots:jungle_loot_pot");
+        list.add("simply_pots:cave_loot_pot");
+        list.add("simply_pots:lush_loot_pot");
+        list.add("simply_pots:sculk_loot_pot");
+        list.add("archeological:dark_urn");
+        list.add("archeological:content_dark_urn");
+        list.add("archeological:fear_dark_urn");
+        list.add("archeological:fearless_dark_urn");
+        list.add("archeological:grumpy_urn");
+        list.add("archeological:surprise_urn");
+        list.add("archeological:dark_urn");
+        list.add("supplementaries:urn");
+        list.add("supplementaries:sack");
+
+        list.addAll(addColoredStuff("pottery:default_pot"));
+        list.addAll(addColoredStuff("pottery:base_pot"));
+        list.addAll(addColoredStuff("pottery:wide_pot"));
+        list.addAll(addColoredStuff("pottery:tall_pot"));
+        list.addAll(addColoredStuff("suppsquared:sack"));
+
+        return list;
+    }
 }
