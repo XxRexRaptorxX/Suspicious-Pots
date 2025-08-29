@@ -421,7 +421,7 @@ staged_files=$(git diff --staged --name-only)
 
 if [ -n "$staged_files" ]; then
   echo "🧹 Checking code formatting…"
-  
+
   # Check if spotless would make changes (without applying them)
   if ./gradlew spotlessCheck --quiet; then
     echo "✅ Code formatting is already correct"
@@ -429,14 +429,14 @@ if [ -n "$staged_files" ]; then
     echo "❌ Code formatting issues found!"
     echo "   Running spotless to fix formatting..."
     ./gradlew spotlessApply --quiet
-    
+
     # Re-add all originally staged files
     for file in $staged_files; do
       if test -f "$file"; then
         git add "$file"
       fi
     done
-    
+
     echo "✅ Code has been formatted and re-staged"
     echo "   The commit will now proceed with properly formatted code"
   fi
