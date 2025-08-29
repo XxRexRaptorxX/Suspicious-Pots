@@ -10,7 +10,7 @@ tasks.named('jar').configure {
 spotless {
     java {
         target 'src/**/*.java'
-        palantirJavaFormat()
+        palantirJavaFormat('2.38.0')
         removeUnusedImports()
         trimTrailingWhitespace()
         endWithNewline()
