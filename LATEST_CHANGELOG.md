@@ -1,4 +1,8 @@
-# [v.5.0.0 for MC 1.21.5](https://github.com/XxRexRaptorxX/Suspicious-Pots/compare/v.5.0.0-dev1...v.5.0.0-dev6)
+# [v.5.0.0 for MC 1.21.5](https://github.com/XxRexRaptorxX/Suspicious-Pots/compare/v.5.0.0-dev1...v.5.0.0-dev7)
+
+## ✨ Features
+
+- mod support added (configurable) ([20f498b](https://github.com/XxRexRaptorxX/Suspicious-Pots/commit/20f498b868f1db639237ab5849499c5c45d7035e))
 
 ## 🔨 Refactoring
 
