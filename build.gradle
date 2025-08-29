@@ -211,7 +211,7 @@ afterEvaluate {
         dependencies {
             required.project "magma-core"
             optional.project("simply-pots")
-            optional.project("archeological")
+            optional.project("archeologicalmod")
             optional.project("pottery")
         }
     }
