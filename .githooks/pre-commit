@@ -1,18 +1,13 @@
-#!/bin/sh
-# Auto-generated pre-commit hook for dev tagging
-# This hook will be executed before every commit
-
-echo "🏷️  Preparing Dev tag for commit..."
-
-# Get project root (one level up from .githooks folder)
-PROJECT_DIR="$(dirname "$(dirname "$0")")"
+#!/usr/bin/env bash
+set -euo pipefail
+IFS=$'\n\t'
+PROJECT_DIR=$(git rev-parse --show-toplevel 2>/dev/null || (cd "$(dirname "$0")/../.." && pwd))
 cd "$PROJECT_DIR" || exit 1
-
-# Read version from gradle.properties
-CURRENT_VERSION=$(grep "^mod_version=" gradle.properties | cut -d'=' -f2)
-
-echo "📋 Current version: $CURRENT_VERSION"
-
-# The actual dev tagging will happen in post-commit to avoid issues
-# Pre-commit just validates that we can create tags
+MSG=$(git log -1 --pretty=%B 2>/dev/null || true)
+if echo "$MSG" | grep -qi "\[skip hooks\]"; then
+  exit 0
+fi
+if ! grep -q '^mod_version=' gradle.properties; then
+  echo "WARN: gradle.properties does not contain 'mod_version'" >&2
+fi
 exit 0
