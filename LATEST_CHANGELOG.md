@@ -1,4 +1,4 @@
-# [v.5.0.0 for MC 1.21.5](https://github.com/XxRexRaptorxX/Suspicious-Pots/compare/v.5.0.0-dev1...v.5.0.0-dev3)
+# [v.5.0.0 for MC 1.21.5](https://github.com/XxRexRaptorxX/Suspicious-Pots/compare/v.5.0.0-dev1...v.5.0.0-dev4)
 
 ## 🔨 Refactoring
 
@@ -6,5 +6,6 @@
 
 ## 🧹 Chores
 
+- githoos fix ([0e85368](https://github.com/XxRexRaptorxX/Suspicious-Pots/commit/0e85368e79d351d96fe71b1ac905aa426317d2cf))
 - githook fixes ([f0f73bb](https://github.com/XxRexRaptorxX/Suspicious-Pots/commit/f0f73bb9da5d2e3829aaa74295be82fc13c618d2))
 
