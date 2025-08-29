@@ -1,5 +1,7 @@
 package xxrexraptorxx.suspicious_pots.utils;
 
+import java.util.Comparator;
+import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -14,9 +16,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import xxrexraptorxx.suspicious_pots.main.SuspiciousPots;
-
-import java.util.Comparator;
-import java.util.List;
 
 public class SpawnHelper {
 

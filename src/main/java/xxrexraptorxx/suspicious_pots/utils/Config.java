@@ -1,13 +1,12 @@
 package xxrexraptorxx.suspicious_pots.utils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import net.minecraft.world.item.DyeColor;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import xxrexraptorxx.magmacore.config.ConfigHelper;
 import xxrexraptorxx.magmacore.config.ConfigListHelper;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class Config {
 
