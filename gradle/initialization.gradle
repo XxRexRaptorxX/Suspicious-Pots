@@ -186,8 +186,33 @@ tasks.register('setupChangelogs') {
     group = "initialization"
     description = "Creates or restores CHANGELOG.md and LATEST_CHANGELOG.md"
     doLast {
-        restoreOrCreateFile("LATEST_CHANGELOG.md", "CREATE_LATEST_CHANGELOG")
-        restoreOrCreateFile("CHANGELOG.md", "CREATE_CHANGELOG")
+        // generate CHANGELOG.md with header
+        def changelogFile = file('CHANGELOG.md')
+        def changelogContent = '# Changelog\n\n'
+
+        if (!changelogFile.exists()) {
+            changelogFile.text = changelogContent
+            println "✅ Created CHANGELOG.md"
+        } else {
+            println "✅ CHANGELOG.md already exists"
+        }
+
+        // generate LATEST_CHANGELOG.md
+        def latestChangelogFile = file('LATEST_CHANGELOG.md')
+        def latestChangelogContent = """# v.${project.mod_version} for MC ${project.minecraft_version}
+
+## 📝 Changes
+
+- Initial release or changes not documented
+
+Please refer to commit history for detailed changes.
+"""
+        if (!latestChangelogFile.exists()) {
+            latestChangelogFile.text = latestChangelogContent
+            println "✅ Created LATEST_CHANGELOG.md with version ${project.mod_version} for MC ${project.minecraft_version}"
+        } else {
+            println "✅ LATEST_CHANGELOG.md already exists"
+        }
     }
 }
 
