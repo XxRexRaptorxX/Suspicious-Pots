@@ -60,12 +60,16 @@ public class SpawnHelper {
                         double random = Math.random();
 
                         if (Config.isDebugModeEnabled()) {
-                            SuspiciousPots.LOGGER.info("Random [" + (float) random + "] must to be less then spawn probability [" + spawnProbability + " (" + ConvertDecimalToPercentage(spawnProbability) + "%) for " + EntityTypeNameFormatter(entityType) + "]");
+                            SuspiciousPots.LOGGER.info(
+                                    "Random [" + (float) random + "] must to be less then spawn probability ["
+                                            + spawnProbability + " (" + ConvertDecimalToPercentage(spawnProbability)
+                                            + "%) for " + EntityTypeNameFormatter(entityType) + "]");
                         }
 
                         if (entityType != null && random < spawnProbability) {
                             if (Config.isDebugModeEnabled())
-                                SuspiciousPots.LOGGER.info(EntityTypeNameFormatter(entityType) + " spawned successfully!");
+                                SuspiciousPots.LOGGER.info(
+                                        EntityTypeNameFormatter(entityType) + " spawned successfully!");
 
                             spawnEntityAtLocation(entityType, level, pos);
                             return; // Spawned entity, exit the loop
@@ -78,7 +82,6 @@ public class SpawnHelper {
             }
         }
     }
-
 
     /**
      * Spawns the specified entity type at the given position in the world.
@@ -107,22 +110,27 @@ public class SpawnHelper {
                 SpawnSilverfishGroup(level, pos);
             }
 
-            level.playSound((Player) null, pos, SoundEvents.DECORATED_POT_HIT, SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.15F + 1.0F);
+            level.playSound(
+                    (Player) null,
+                    pos,
+                    SoundEvents.DECORATED_POT_HIT,
+                    SoundSource.BLOCKS,
+                    1.0F,
+                    level.random.nextFloat() * 0.15F + 1.0F);
             entity.setPos(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
             level.addFreshEntity(entity);
         }
     }
 
-
     private static void SpawnSilverfishGroup(Level level, BlockPos pos) {
         int searchRadius = 5;
 
-        //sets the start position
+        // sets the start position
         int posX = pos.getX();
         int posY = pos.getY();
         int posZ = pos.getZ();
 
-        //changes the tested position
+        // changes the tested position
         for (int x = -searchRadius; x <= searchRadius; x++) {
 
             for (int y = -searchRadius; y <= searchRadius; y++) {
@@ -130,20 +138,31 @@ public class SpawnHelper {
                 for (int z = -searchRadius; z <= searchRadius; z++) {
                     BlockPos block = new BlockPos(posX + x, posY + y, posZ + z);
 
-                    //tests if current block is a pot and it's not the start block
+                    // tests if current block is a pot and it's not the start block
                     if (level.getBlockState(block).getBlock() == Blocks.DECORATED_POT && pos != block) {
                         double random = Math.random();
 
                         if (Config.isDebugModeEnabled()) {
-                            SuspiciousPots.LOGGER.info("Additional silverfish spawning for Pot at the position: [" + block.getX() + ", " +  block.getY() + ", " + block.getZ() + "]");
-                            SuspiciousPots.LOGGER.info("Random [" + (float) random + "] must to be less then spawn probability [" + Config.getSilverfishGroupSpawnProbability() + " (" + ConvertDecimalToPercentage(Config.getSilverfishGroupSpawnProbability()) + "%)]");
+                            SuspiciousPots.LOGGER.info("Additional silverfish spawning for Pot at the position: ["
+                                    + block.getX() + ", " + block.getY() + ", " + block.getZ() + "]");
+                            SuspiciousPots.LOGGER.info("Random [" + (float) random
+                                    + "] must to be less then spawn probability ["
+                                    + Config.getSilverfishGroupSpawnProbability() + " ("
+                                    + ConvertDecimalToPercentage(Config.getSilverfishGroupSpawnProbability()) + "%)]");
                         }
 
-                        //entity spawning
+                        // entity spawning
                         if (Config.getSilverfishGroupSpawnProbability() > random) {
-                            if (Config.isDebugModeEnabled()) SuspiciousPots.LOGGER.info("Additional silverfish spawned successfully!");
+                            if (Config.isDebugModeEnabled())
+                                SuspiciousPots.LOGGER.info("Additional silverfish spawned successfully!");
 
-                            level.playSound((Player) null, block, SoundEvents.DECORATED_POT_HIT, SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.15F + 1.0F);
+                            level.playSound(
+                                    (Player) null,
+                                    block,
+                                    SoundEvents.DECORATED_POT_HIT,
+                                    SoundSource.BLOCKS,
+                                    1.0F,
+                                    level.random.nextFloat() * 0.15F + 1.0F);
                             Silverfish entity = new Silverfish(EntityType.SILVERFISH, level);
                             entity.setPos(block.getX() + 0.5F, block.getY() + 1.3F, block.getZ() + 0.5F);
                             level.addFreshEntity(entity);
@@ -154,13 +173,11 @@ public class SpawnHelper {
         }
     }
 
-
     public static double ConvertDecimalToPercentage(double decimal) {
         return decimal > 1 ? 100 : decimal * 100;
     }
 
-
     public static String EntityTypeNameFormatter(EntityType entityType) {
-        return entityType.toString().replace("entity.", "").replace("." ,":");
+        return entityType.toString().replace("entity.", "").replace(".", ":");
     }
 }

@@ -276,7 +276,7 @@ tasks.register('createReadme') {
                 def desc = project.hasProperty('description') ? project.property('description') : 'Helloworld!'
                 def readmeContent = """\
         <p align="center">
-  <a href="https://www.curseforge.com/minecraft/mc-mods/${mod_id}"><img src="http://cf.way2muchnoise.eu/short_${cf_id}.svg?badge_style=flat" alt="Curseforge"></a> 
+  <a href="https://www.curseforge.com/minecraft/mc-mods/${mod_id}"><img src="http://cf.way2muchnoise.eu/short_${cf_id}.svg?badge_style=flat" alt="Curseforge"></a>
   <a href="https://modrinth.com/mod/${mod_id}"><img src="https://img.shields.io/modrinth/dt/${mr_id}?logo=modrinth&label=&suffix=%20&style=flat&color=242629&labelColor=5ca424&logoColor=1c1c1c" alt="Modrinth"></a>
   <a href="https://www.curseforge.com/minecraft/mc-mods/${mod_id}"><img src="https://cf.way2muchnoise.eu/versions/${cf_id}(266fff).svg?badge_style=flat" alt="Supported Versions"></a>
   <a href="https://discord.gg/hmaD7Se"><img src="https://img.shields.io/discord/523112426913267713?color=282828&logo=discord&style=flat&label=&labelColor=B6BCEA" alt="Discord"></a>
@@ -292,7 +292,7 @@ tasks.register('createReadme') {
 #DESC#
 
  -----
-#### Features: 
+#### Features:
 - cool feature 1
 - cool feature 2
 
@@ -312,9 +312,9 @@ tasks.register('createReadme') {
 
 ### Required:
 - **Magma Core**
-  - Provides basic code and features such as update-checker 
+  - Provides basic code and features such as update-checker
   - [CurseForge][cf_magmacore] | [Modrinth][mr_magmacore]
-  
+
 ### Supported:
 - **Just Enough Items (JEI)**
   - Provides some additional info pages and shows all recipes
@@ -336,7 +336,7 @@ tasks.register('createReadme') {
   <a href="https://www.curseforge.com/minecraft/mc-mods/advanced-sticks"><img src="https://github.com/XxRexRaptorxX/AdvancedSticks/blob/master/src/main/resources/logo.png?raw=true" alt="Advanced Tools" width="85"/></a>
   <a href="https://www.curseforge.com/minecraft/mc-mods/age-of-weapons"><img src="https://camo.githubusercontent.com/e8e1315b08a3bd1fb144ccd47488b1df4033418ad3aee01e61cc9d6e83fa55a5/68747470733a2f2f692e696d6775722e636f6d2f586d324332576a2e706e67" alt="Age of Weapons" width="85"/></a>
   <a href="https://www.curseforge.com/minecraft/mc-mods/rune-craft"><img src="https://github.com/XxRexRaptorxX/RuneCraft/blob/main/src/main/resources/logo.png?raw=true" alt="Rune Craft" width="85"/></a>
-  <a href="https://www.curseforge.com/minecraft/mc-mods/collectibles"><img src="https://github.com/XxRexRaptorxX/Collectibles/blob/main/src/main/resources/logo.png?raw=true" alt="Collectibles" width="85"/></a> <br> 
+  <a href="https://www.curseforge.com/minecraft/mc-mods/collectibles"><img src="https://github.com/XxRexRaptorxX/Collectibles/blob/main/src/main/resources/logo.png?raw=true" alt="Collectibles" width="85"/></a> <br>
   <a href="https://www.curseforge.com/minecraft/mc-mods/extra-gems"><img src="https://github.com/XxRexRaptorxX/ExtraGems/blob/main/src/main/resources/logo.png?raw=true" alt="Extra Gems" width="85"/></a>
   <a href="https://www.curseforge.com/minecraft/mc-mods/minetraps"><img src="https://github.com/XxRexRaptorxX/MineTraps/blob/main/src/main/resources/logo.png?raw=true" alt="Mine Traps" width="85"/></a>
   <a href="https://www.curseforge.com/minecraft/mc-mods/exo-craft"><img src="https://github.com/XxRexRaptorxX/ExoCraft/blob/main/src/main/resources/logo.png?raw=true" alt="ExoCraft" width="85"/></a>

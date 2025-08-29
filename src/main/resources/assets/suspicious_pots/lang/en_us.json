@@ -2,14 +2,12 @@
   "suspicious_pots.configuration.title": "Suspicious Pots Configuration",
   "suspicious_pots.configuration.section.suspicious.pots.server.toml": "Server Settings",
   "suspicious_pots.configuration.section.suspicious.pots.server.toml.title": "Server Options",
-
   "suspicious_pots.configuration.general": "General",
   "suspicious_pots.configuration.general.button": "General Settings",
   "suspicious_pots.configuration.general.tooltip": "Configure general settings",
   "suspicious_pots.configuration.spawn_settings": "Spawn Settings",
   "suspicious_pots.configuration.spawn_settings.button": "Spawn Settings",
   "suspicious_pots.configuration.spawn_settings.tooltip": "Configure spawn settings",
-
   "suspicious_pots.configuration.spawning_list": "Entity Spawning List",
   "suspicious_pots.configuration.spawning_list.button": "Edit list",
   "suspicious_pots.configuration.spawning_list.tooltip": "A list with all the mobs that can spawn from a broken pot (probability is written in decimal. 1.0 = 100%, 0.5 = 50%, 0.03 = 3%)",

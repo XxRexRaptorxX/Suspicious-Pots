@@ -20,8 +20,8 @@ public class SuspiciousPots {
 
     public SuspiciousPots(ModContainer container) {
         ConfigHelper.registerConfigs(container, References.MODID, false, Config.SERVER_CONFIG, null);
-        ModRegistry.register(References.MODID, References.NAME, References.URL);    }
-
+        ModRegistry.register(References.MODID, References.NAME, References.URL);
+    }
 
     @Mod(value = References.MODID, dist = Dist.CLIENT)
     public static class SuspiciousPotsClient {
