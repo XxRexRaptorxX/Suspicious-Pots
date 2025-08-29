@@ -21,29 +21,24 @@ fi
 # Get staged files
 staged_files=$(git diff --staged --name-only)
 
-if [ -n "$staged_files" ]; then
-  echo "🧹 Checking code formatting…"
-
-  # Check if spotless would make changes (without applying them)
-  if ./gradlew spotlessCheck --quiet; then
-    echo "✅ Code formatting is already correct"
-  else
-    echo "❌ Code formatting issues found!"
-    echo "   Running spotless to fix formatting..."
-    ./gradlew spotlessApply --quiet
-
-    # Re-add all originally staged files
-    for file in $staged_files; do
-      if test -f "$file"; then
-        git add "$file"
-      fi
-    done
-
-    echo "✅ Code has been formatted and re-staged"
-    echo "   The commit will now proceed with properly formatted code"
-  fi
-else
-  echo "ℹ️  No staged files to format"
+if [ -z "$staged_files" ]; then
+  echo "ℹ️  No staged files found"
+  exit 0
 fi
 
-exit 0
+echo "🧹 Checking code formatting for staged files..."
+
+# Check if spotless would make changes (without applying them)
+if ./gradlew spotlessCheck --quiet 2>/dev/null; then
+  echo "✅ Code formatting is already correct"
+  exit 0
+else
+  echo "❌ Code formatting issues found!"
+  echo ""
+  echo "Please run the following command to fix formatting:"
+  echo "  ./gradlew spotlessApply"
+  echo ""
+  echo "Then stage your files again and retry the commit."
+  echo ""
+  exit 1  # Abort the commit
+fi
