@@ -85,13 +85,11 @@ public class Config {
         list.add("archeological:surprise_urn");
         list.add("archeological:dark_urn");
         list.add("supplementaries:urn");
-        list.add("supplementaries:sack");
 
         list.addAll(addColoredStuff("pottery:default_pot"));
         list.addAll(addColoredStuff("pottery:base_pot"));
         list.addAll(addColoredStuff("pottery:wide_pot"));
         list.addAll(addColoredStuff("pottery:tall_pot"));
-        list.addAll(addColoredStuff("suppsquared:sack"));
 
         return list;
     }
