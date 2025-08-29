@@ -40,6 +40,18 @@ This mod sometimes spawns small monsters such as silverfish and baby husks when 
 - **Magma Core**
   - Provides basic code and features such as update-checker
   - [CurseForge][cf_magmacore] | [Modrinth][mr_magmacore]
+  
+### Supported:
+- **Simply Pots**
+  - Support for modded pots integrated
+  - [CurseForge][cf_sp] | [Modrinth][mr_sp]
+- **Pottery**
+  - Support for modded pots integrated
+  - [CurseForge][cf_pottery] | [Modrinth][mr_pottery]
+- **Archeologicial**
+  - Support for urns integrated
+  - [CurseForge][cf_arch] | [Modrinth][mr_arch]
+
 
 <p align="center">
   <img src="https://github.com/XxRexRaptorxX/General/blob/main/page_decorations/line.png?raw=true" alt="line" width="2000"/>
@@ -91,3 +103,9 @@ This mod sometimes spawns small monsters such as silverfish and baby husks when 
 
 [cf_magmacore]: https://www.curseforge.com/minecraft/mc-mods/magma-core
 [mr_magmacore]: https://modrinth.com/mod/magma-core
+[cf_sp]: https://www.curseforge.com/minecraft/mc-mods/simply-pots
+[mr_sp]: https://modrinth.com/mod/simply-pots
+[cf_arch]: https://www.curseforge.com/minecraft/mc-mods/archeological
+[mr_arch]: https://modrinth.com/mod/archeologicalmod
+[cf_pottery]: https://www.curseforge.com/members/supermartijn642/projects
+[mr_pottery]: https://modrinth.com/mod/pottery

@@ -210,7 +210,9 @@ afterEvaluate {
         syncBodyFrom = rootProject.file("README.md").text
         dependencies {
             required.project "magma-core"
-            //optional.project "jei"
+            optional.project("simply-pots")
+            optional.project("archeological")
+            optional.project("pottery")
         }
     }
 }
