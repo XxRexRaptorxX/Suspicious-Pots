@@ -422,14 +422,14 @@ staged_files=$(git diff --staged --name-only)
 if [ -n "$staged_files" ]; then
   echo "🧹 Formatting code in staged files…"
   ./gradlew spotlessApply
-  
+
   # Re-add formatted files to staging area
   for file in $staged_files; do
     if test -f "$file"; then
       git add "$file"
     fi
   done
-  
+
   echo "✅ Code formatting completed"
 else
   echo "ℹ️  No staged files to format"

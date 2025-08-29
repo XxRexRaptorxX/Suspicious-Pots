@@ -23,20 +23,21 @@ public class Config {
     static {
         ConfigHelper.setCategory(SERVER_BUILDER, "general");
         DEBUG_MODE = SERVER_BUILDER
-                .comment("Enables the Debug Mode. (shows you the spawn values & probabilities in the server console)")
+                .comment("Enables the Debug Mode. (shows you the spawn values &"
+                        + " probabilities in the server console)")
                 .define("debug_mode", false);
         SERVER_BUILDER.pop();
 
         ConfigHelper.setCategory(SERVER_BUILDER, "spawn_settings");
         SPAWN_BLOCKS = SERVER_BUILDER
-                .comment("A list of all blocks that should have the ability to spawn monsters.")
+                .comment("A list of all blocks that should have the ability to spawn" + " monsters.")
                 .defineListAllowEmpty(
                         "spawn_blocks",
                         makeSpawnBlockList(),
                         () -> "id:block",
                         obj -> obj instanceof String string && ConfigListHelper.isValidBlock(string));
         SPAWNING_LIST = SERVER_BUILDER
-                .comment("A list with all the mobs that can spawn from a broken pot [id:entity-probability]")
+                .comment("A list with all the mobs that can spawn from a broken pot" + " [id:entity-probability]")
                 .defineListAllowEmpty(
                         "spawning_list",
                         Arrays.asList(
@@ -51,16 +52,19 @@ public class Config {
                         () -> "id:entity-probability", // default
                         obj -> obj instanceof String string && ConfigListHelper.isValidEntityWithProbability(string));
         BLOCKS_WHITE_LIST = SERVER_BUILDER
-                .comment(
-                        "Only allows mobs to spawn if the pots are above a certain block. Useful if you want the mobs to only spawn in pots of certain structures. [id:block] (use 'minecraft:oxidized_copper' for trial chambers)")
+                .comment("Only allows mobs to spawn if the pots are above a certain block."
+                        + " Useful if you want the mobs to only spawn in pots of"
+                        + " certain structures. [id:block] (use"
+                        + " 'minecraft:oxidized_copper' for trial chambers)")
                 .defineListAllowEmpty(
                         "blocks_white_list",
                         Arrays.asList(),
                         () -> "id:block",
                         obj -> obj instanceof String string && ConfigListHelper.isValidBlock(string));
         SILVERFISH_GROUP_SPAWN_PROBABILITY = SERVER_BUILDER
-                .comment(
-                        "This is the probability that when a silverfish spawns from a broken pot, that other silverfish from nearby pots are spawning.")
+                .comment("This is the probability that when a silverfish spawns from a"
+                        + " broken pot, that other silverfish from nearby pots are"
+                        + " spawning.")
                 .defineInRange("silverfish_group_spawn_probability", 0.1, 0.0, 1.0);
         SERVER_BUILDER.pop();
 

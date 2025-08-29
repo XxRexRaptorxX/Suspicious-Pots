@@ -23,8 +23,10 @@ public class SpawnHelper {
     /**
      * Spawns a creature based on the configuration settings at the specified position.
      *
-     * @param level The world level.
-     * @param pos   The position where the creature should be spawned.
+     * @param level
+     *        The world level.
+     * @param pos
+     *        The position where the creature should be spawned.
      */
     public static void SpawnCreature(Level level, BlockPos pos) {
         if (Config.isDebugModeEnabled()) SuspiciousPots.LOGGER.info("Try to spawn creature!");
@@ -86,9 +88,12 @@ public class SpawnHelper {
     /**
      * Spawns the specified entity type at the given position in the world.
      *
-     * @param entityType The type of entity to spawn.
-     * @param level      The world level.
-     * @param pos        The position where the entity should be spawned.
+     * @param entityType
+     *        The type of entity to spawn.
+     * @param level
+     *        The world level.
+     * @param pos
+     *        The position where the entity should be spawned.
      */
     private static void spawnEntityAtLocation(EntityType<?> entityType, Level level, BlockPos pos) {
         Entity entity = entityType.create(level, EntitySpawnReason.TRIGGERED);
@@ -145,10 +150,11 @@ public class SpawnHelper {
                         if (Config.isDebugModeEnabled()) {
                             SuspiciousPots.LOGGER.info("Additional silverfish spawning for Pot at the position: ["
                                     + block.getX() + ", " + block.getY() + ", " + block.getZ() + "]");
-                            SuspiciousPots.LOGGER.info("Random [" + (float) random
-                                    + "] must to be less then spawn probability ["
-                                    + Config.getSilverfishGroupSpawnProbability() + " ("
-                                    + ConvertDecimalToPercentage(Config.getSilverfishGroupSpawnProbability()) + "%)]");
+                            SuspiciousPots.LOGGER.info(
+                                    "Random [" + (float) random + "] must to be less then spawn probability ["
+                                            + Config.getSilverfishGroupSpawnProbability() + " ("
+                                            + ConvertDecimalToPercentage(Config.getSilverfishGroupSpawnProbability())
+                                            + "%)]");
                         }
 
                         // entity spawning
